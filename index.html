@@ -1,140 +1,396 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>在宅作業報告書</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{
-  --bg:#f5f4f0; --panel:#fdfcfa; --line:#d8d6cf; --line-strong:#8f8c84; --ink:#23262b; --muted:#6c7079;
-  --accent:#2f4a7a; --accent-soft:#e6ebf4; --cell-in:#fff6bf; --cell-in-ink:#3a3200; --cell-hd:#e5e6e9;
-}
-@media (prefers-color-scheme: dark){ :root{
-  --bg:#1b1d21; --panel:#23262c; --line:#3a3e46; --line-strong:#7a7f8a; --ink:#e6e7ea; --muted:#9aa0ab;
-  --accent:#9db3dc; --accent-soft:#2b3446; --cell-in:#4a4320; --cell-in-ink:#fff3b0; --cell-hd:#2f333b;
-}}
-*{box-sizing:border-box}
-html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:14px/1.6 "Noto Sans JP","Hiragino Sans","Yu Gothic UI",sans-serif;-webkit-font-smoothing:antialiased}
-.mono{font-family:"IBM Plex Mono","Menlo",monospace;font-variant-numeric:tabular-nums}
-button{font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line-strong);border-radius:4px;padding:6px 14px;cursor:pointer;line-height:1.4}
-button:hover{background:var(--accent-soft)}
-button:focus-visible,.day:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-header{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-header h1{font-size:16px;font-weight:700;margin:0;letter-spacing:.02em}
-header .who{color:var(--muted);font-size:13px}
-header .grow{flex:1}
-header .count{color:var(--muted);font-size:12px}
-.layout{display:grid;grid-template-columns:236px 1fr;min-height:calc(100vh - 57px)}
-nav{border-right:1px solid var(--line);background:var(--panel);padding:8px 0 24px;overflow-y:auto}
-nav .month{font-size:11px;letter-spacing:.08em;color:var(--muted);padding:14px 18px 4px}
-nav .day{display:grid;grid-template-columns:1fr auto;gap:8px;width:100%;text-align:left;padding:7px 18px;border:0;border-left:3px solid transparent;border-radius:0;background:none;cursor:pointer}
-nav .day:hover{background:var(--accent-soft)}
-nav .day.active{border-left-color:var(--accent);background:var(--accent-soft);font-weight:500}
-nav .day .h{color:var(--muted);font-size:12px}
-nav .empty{padding:18px;color:var(--muted);font-size:13px}
-main{padding:24px 28px 48px;min-width:0}
-.bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.bar .status{color:var(--muted);font-size:13px}
-.bar .grow{flex:1}
-.sheet{background:var(--panel);border:1px solid var(--line);padding:28px 28px 32px;max-width:820px;overflow-x:auto}
-.sheet table{border-collapse:collapse;width:100%;min-width:640px;table-layout:fixed}
-.sheet col.c1{width:96px}.sheet col.c2{width:130px}.sheet col.c4{width:140px}
-.sheet td{border:1px solid var(--line-strong);padding:5px 8px;vertical-align:middle;word-break:break-all}
-.sheet td.hd{background:var(--cell-hd);font-weight:700}
-.sheet td.in{background:var(--cell-in);color:var(--cell-in-ink)}
-.sheet td.c{text-align:center}
-.sheet td.title{font-size:20px;font-weight:700;text-align:center;letter-spacing:.2em;padding:8px}
-.sheet td.gap{border:0;height:12px;padding:0}
-.sheet td.work{height:38px;white-space:pre-wrap}
-.sheet td.remarks{height:78px;vertical-align:top;white-space:pre-wrap}
-.sheet td.no{color:var(--muted)}
-.hint{color:var(--muted);font-size:13px}
-@media (max-width:720px){
-  .layout{grid-template-columns:1fr}
-  nav{border-right:0;border-bottom:1px solid var(--line);padding:6px 10px;display:flex;gap:4px;overflow-x:auto}
-  nav .month{padding:8px 6px 8px 10px;white-space:nowrap;align-self:center}
-  nav .day{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent;grid-template-columns:auto;padding:6px 10px}
-  nav .day.active{border-bottom-color:var(--accent)}
-  nav .day .h{display:none}
-  main{padding:16px 12px 40px}
-  .sheet{padding:14px}
-  header{padding:10px 12px;gap:8px}
-}
-@media print{
-  header,nav,.bar{display:none!important}
-  body{background:#fff;color:#000}
-  .layout{display:block}
-  main{padding:0}
-  .sheet{border:0;padding:0;max-width:none}
-  .sheet td{border-color:#000}
-  .sheet td.hd{background:#d9d9d9!important}
-  .sheet td.in{background:#ffffcc!important;color:#000}
-}
+  :root{
+    --bg:#f4f5f7; --panel:#fff; --line:#d9dce1; --text:#1f2328; --muted:#6b7280;
+    --accent:#2563eb; --accent-bg:#e8effd; --yellow:#ffffcc; --gray:#d9d9d9; --danger:#dc2626;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Meiryo UI","Yu Gothic UI",sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+  header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;flex-wrap:wrap}
+  header h1{font-size:17px;margin:0;font-weight:700}
+  .chip{font-size:12px;padding:3px 10px;border-radius:999px;background:#e5e7eb;color:#374151}
+  .chip.ok{background:#dcfce7;color:#166534}
+  .spacer{flex:1}
+  button{font:inherit;padding:7px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;color:var(--text)}
+  button:hover{background:#f3f4f6}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.primary:hover{background:#1d4ed8}
+  button.danger{color:var(--danger)}
+  button.small{padding:4px 10px;font-size:12px}
+  button:disabled{opacity:.5;cursor:default}
+  .layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 54px)}
+  aside{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto}
+  aside .month{padding:10px 14px 4px;font-size:12px;color:var(--muted);font-weight:700}
+  aside .day{display:flex;justify-content:space-between;padding:8px 14px;cursor:pointer;border-left:3px solid transparent}
+  aside .day:hover{background:#f3f4f6}
+  aside .day.active{background:var(--accent-bg);border-left-color:var(--accent)}
+  aside .day small{color:var(--muted)}
+  aside .empty{padding:20px 14px;color:var(--muted);font-size:13px;line-height:1.6}
+  main{padding:20px 24px;max-width:1000px;min-width:0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:18px}
+  .card h2{font-size:15px;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+  .card h2 .spacer{flex:1}
+  .row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+  input[type=text],input[type=date],input[type=time],input[type=password],textarea{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:5px;background:var(--yellow);width:100%}
+  input[type=password]{background:#fff}
+  textarea{resize:vertical;min-height:70px}
+  table.edit{width:100%;border-collapse:collapse}
+  table.edit th{font-size:12px;color:var(--muted);text-align:left;padding:4px 6px;font-weight:600}
+  table.edit td{padding:3px 4px;vertical-align:top}
+  table.edit td.no{text-align:center;color:var(--muted);padding-top:9px;width:32px}
+  table.edit td.time{width:210px;white-space:nowrap}
+  table.edit td.time input{width:92px;display:inline-block}
+  table.edit td.note{width:200px}
+  .total{font-weight:700;font-size:15px}
+  .actions{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .msg{font-size:12px;color:var(--muted)}
+  .notice{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;padding:12px 16px;border-radius:8px;margin-bottom:18px;line-height:1.6}
+  .notice.info{background:var(--accent-bg);border-color:#93c5fd;color:#1e3a8a}
+  dialog{border:1px solid var(--line);border-radius:10px;padding:20px 22px;max-width:520px;width:calc(100% - 32px);box-shadow:0 10px 40px rgba(0,0,0,.2)}
+  dialog::backdrop{background:rgba(0,0,0,.3)}
+  dialog h3{margin:0 0 10px;font-size:15px}
+  dialog p{margin:0 0 10px;font-size:13px;line-height:1.7}
+  dialog ol{margin:0 0 12px;padding-left:20px;font-size:13px;line-height:1.7}
+  /* 印刷用プレビュー（Excelフォーマットを再現） */
+  .sheet{font-family:"Meiryo UI","Hiragino Sans",sans-serif;font-size:10.5pt;width:720px;max-width:100%;background:#fff;overflow-x:auto}
+  .sheet table{border-collapse:collapse;width:100%;min-width:600px}
+  .sheet td{border:1px solid #000;padding:3px 6px;vertical-align:middle;word-break:break-all}
+  .sheet td.hd{background:var(--gray);font-weight:700}
+  .sheet td.in{background:var(--yellow)}
+  .sheet td.c{text-align:center}
+  .sheet td.title{font-size:18pt;font-weight:700;text-align:center;height:34px}
+  .sheet td.nb{border:none;height:12px}
+  .sheet td.work{height:36px;white-space:pre-wrap}
+  .sheet td.remarks{height:72px;vertical-align:top;white-space:pre-wrap}
+  @media (max-width:720px){
+    .layout{grid-template-columns:1fr}
+    aside{border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;padding:4px 8px}
+    aside .month{white-space:nowrap;align-self:center;padding:8px}
+    aside .day{white-space:nowrap;border-left:0;border-bottom:3px solid transparent;gap:6px}
+    aside .day.active{border-bottom-color:var(--accent)}
+    main{padding:12px}
+    table.edit td.time{width:auto}
+    table.edit td.time input{width:80px}
+  }
+  @media print{
+    header,aside,.card:not(.preview),.actions,.notice{display:none!important}
+    body{background:#fff}
+    .layout{display:block}
+    main{padding:0;max-width:none}
+    .card.preview{border:none;padding:0;margin:0}
+    .card.preview h2{display:none}
+    .sheet{width:auto;overflow:visible}
+  }
 </style>
 </head>
 <body>
-<div id="app"></div>
-<script id="reports-data" type="application/json">[{"date": "2026-09-10", "worker": "吉武眞吾", "rows": [{"start": "09:00", "end": "12:00", "content": "Kotlin言語のPaizaラーニング 第15回・第16回・第17回を実施", "note": ""}, {"start": "13:00", "end": "18:00", "content": "Java言語のPaizaラーニング 第1回〜第13回を実施", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}], "remarks": "特になし", "totalMin": 480}]</script>
+<header>
+  <h1>在宅作業報告書</h1>
+  <span id="modeChip" class="chip">読み込み中…</span>
+  <span class="spacer"></span>
+  <button id="btnNew" hidden>＋ 今日の報告を作成</button>
+  <button id="btnExcel">📊 Excel出力</button>
+  <button id="btnSettings" class="small" title="編集者の設定">⚙</button>
+</header>
+
+<div class="layout">
+  <aside id="list"><div class="empty">読み込み中…</div></aside>
+  <main>
+    <div id="loadError" class="notice" hidden>報告データを読み込めませんでした。時間をおいて再読み込みしてください。</div>
+
+    <div class="card" id="editor" hidden>
+      <h2 id="editorTitle">報告の編集</h2>
+      <div class="row">
+        <div style="width:200px"><label>日付</label><input type="date" id="fDate"></div>
+        <div style="width:240px"><label>作業者</label><input type="text" id="fWorker" placeholder="氏名"></div>
+      </div>
+      <table class="edit">
+        <thead><tr><th>No.</th><th>作業時間（開始〜終了）</th><th>作業内容</th><th>備考</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="row" style="margin-top:12px;align-items:baseline">
+        <div class="total">合計作業時間：<span id="fTotal">0時間分</span></div>
+        <div class="msg">※ 各行の開始・終了時刻から自動計算します（休憩は行を分けてください）</div>
+      </div>
+      <div><label>特記事項</label><textarea id="fRemarks" placeholder="特になし"></textarea></div>
+      <div class="actions">
+        <button id="btnSave" class="primary">💾 保存（公開）</button>
+        <span class="spacer"></span>
+        <button id="btnDelete" class="danger">削除</button>
+        <span id="saveMsg" class="msg"></span>
+      </div>
+    </div>
+
+    <div class="card preview" id="previewCard" hidden>
+      <h2><span id="previewTitle">プレビュー（印刷用）</span><span class="spacer"></span><button id="btnPrint" class="small">🖨 印刷</button></h2>
+      <div id="preview"></div>
+    </div>
+  </main>
+</div>
+
+<dialog id="dlgToken">
+  <h3>編集者の設定</h3>
+  <p>報告を保存するには、GitHub の「Fine-grained personal access token」をこの端末に登録します（このブラウザ内にだけ保存されます）。</p>
+  <ol>
+    <li>GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token</li>
+    <li>Repository access：<b>Only select repositories → zaitaku-report</b></li>
+    <li>Permissions → Repository permissions → <b>Contents：Read and write</b></li>
+    <li>生成されたトークン（github_pat_…）を下に貼り付け</li>
+  </ol>
+  <input type="password" id="tokenInput" placeholder="github_pat_…" autocomplete="off">
+  <div class="actions" style="margin-top:12px">
+    <button id="btnTokenSave" class="primary">登録</button>
+    <button id="btnTokenClear" class="danger">解除（閲覧のみに戻す）</button>
+    <span class="spacer"></span>
+    <button id="btnTokenClose">閉じる</button>
+  </div>
+</dialog>
+
 <script>
 'use strict';
+const OWNER = 'blackcivic4145', REPO = 'zaitaku-report', DATA_PATH = 'data/reports.json';
 const ROWS = 10, WD = ['日','月','火','水','木','金','土'];
-let reports = [];
-try { reports = JSON.parse(document.getElementById('reports-data').textContent); } catch (e) {}
-reports.sort((a, b) => b.date.localeCompare(a.date));
-const app = document.getElementById('app');
-const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const pad = n => String(n).padStart(2, '0');
-const jpDate = iso => { const [y,m,d] = iso.split('-').map(Number); return `${y}年${m}月${d}日（${WD[new Date(y,m-1,d).getDay()]}）`; };
-const shortTime = t => t ? `${Number(t.split(':')[0])}:${t.split(':')[1]}` : '';
-const timeRange = r => (r.start || r.end) ? `${shortTime(r.start)}〜${shortTime(r.end)}` : '';
-const totalText = min => { min = min || 0; const h = Math.floor(min/60), m = min%60; return m ? `${h}時間${m}分` : `${h}時間分`; };
-const worker = (reports.find(r => r.worker) || {}).worker || '';
-let sel = (location.hash.slice(1).match(/^\d{4}-\d{2}-\d{2}$/) && reports.some(r => r.date === location.hash.slice(1))) ? location.hash.slice(1) : (reports[0] ? reports[0].date : null);
+let reports = [], current = null, lastWorker = '', dataSha = null;
+const $ = id => document.getElementById(id);
+const token = () => { try { return localStorage.getItem('zr_token') || ''; } catch (e) { return ''; } };
+const isEditor = () => !!token();
 
-function render() {
-  const cur = reports.find(r => r.date === sel) || null;
-  app.innerHTML = `
-<header><h1>在宅作業報告書</h1><span class="who">${esc(worker)}</span><span class="grow"></span><span class="count">全${reports.length}日分</span></header>
-<div class="layout">
-  <nav>${renderNav()}</nav>
-  <main>${cur ? `<div class="bar"><span class="status">${esc(jpDate(cur.date))}</span><span class="grow"></span><button id="btnPrint">印刷</button></div>${renderSheet(cur)}` : '<p class="hint">まだ報告がありません。</p>'}</main>
-</div>`;
-  app.querySelectorAll('nav .day').forEach(b => b.onclick = () => { sel = b.dataset.date; history.replaceState(null, '', '#' + sel); render(); window.scrollTo(0, 0); });
-  const p = document.getElementById('btnPrint'); if (p) p.onclick = () => window.print();
-}
-function renderNav() {
-  if (!reports.length) return '<div class="empty">まだ報告がありません。</div>';
-  let out = '', month = '';
-  for (const r of reports) {
-    const m = r.date.slice(0, 7);
-    if (m !== month) { month = m; out += `<div class="month">${Number(m.slice(0,4))}年${Number(m.slice(5))}月</div>`; }
-    const [y, mo, d] = r.date.split('-').map(Number);
-    out += `<button class="day${r.date === sel ? ' active' : ''}" data-date="${r.date}"><span><span class="mono">${mo}/${pad(d)}</span>（${WD[new Date(y,mo-1,d).getDay()]}）</span><span class="h mono">${esc(totalText(r.totalMin))}</span></button>`;
+// ---------- ユーティリティ ----------
+function pad(n){ return String(n).padStart(2,'0'); }
+function todayStr(){ const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+function jpDate(iso){ const [y,m,d]=iso.split('-').map(Number); const w=WD[new Date(y,m-1,d).getDay()]; return `${y}年${m}月${d}日（${w}）`; }
+function toMin(t){ if(!t) return null; const [h,m]=t.split(':').map(Number); return h*60+m; }
+function shortTime(t){ if(!t) return ''; const [h,m]=t.split(':'); return `${Number(h)}:${m}`; }
+function timeRange(r){ return (r.start||r.end) ? `${shortTime(r.start)}〜${shortTime(r.end)}` : ''; }
+function calcTotal(rows){ let min=0; for(const r of rows){ const s=toMin(r.start), e=toMin(r.end); if(s!=null&&e!=null&&e>s) min+=e-s; } return min; }
+function totalText(min){ min=min||0; const h=Math.floor(min/60), m=min%60; return m ? `${h}時間${m}分` : `${h}時間分`; }
+function esc(s){ return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function flash(msg, ms=4000){ $('saveMsg').textContent=msg; clearTimeout(flash.h); flash.h=setTimeout(()=>{ if($('saveMsg').textContent===msg) $('saveMsg').textContent=''; },ms); }
+const b64 = s => btoa(String.fromCharCode(...new TextEncoder().encode(s)));
+const unb64 = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g,'')), c=>c.charCodeAt(0)));
+
+// ---------- データ読み込み / GitHub 保存 ----------
+async function loadAll(){
+  try{
+    const res = await fetch(`${DATA_PATH}?t=${Date.now()}`, {cache:'no-store'});
+    if(!res.ok) throw new Error(res.status);
+    reports = await res.json();
+    try{ localStorage.setItem('zr_cache', JSON.stringify(reports)); }catch(e){}
+  }catch(e){
+    try{ reports = JSON.parse(localStorage.getItem('zr_cache')||'[]'); }catch(e2){ reports=[]; }
+    if(!reports.length) $('loadError').hidden=false;
   }
-  return out;
+  reports.sort((a,b)=>b.date.localeCompare(a.date));
+  lastWorker = (reports.find(r=>r.worker)||{}).worker || '';
+  applyMode();
+  const h = location.hash.slice(1);
+  if(reports.some(r=>r.date===h)) openReport(h);
+  else if(reports.length) openReport(reports[0].date);
+  else if(isEditor()) newReport();
+  else renderList();
 }
-function renderSheet(r) {
-  const rows = Array.from({ length: ROWS }, (_, i) => { const x = r.rows[i] || {};
-    return `<tr><td class="c no mono">${i+1}</td><td class="in c mono">${esc(timeRange(x))}</td><td class="in work">${esc(x.content)}</td><td class="work">${esc(x.note)}</td></tr>`; }).join('');
-  return `<div class="sheet"><table><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+async function gh(method, url, body){
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${url}`, {
+    method, headers:{ 'Authorization':`Bearer ${token()}`, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' },
+    body: body ? JSON.stringify(body) : undefined });
+  if(res.status===401 || res.status===403) throw new Error('トークンが無効か権限不足です。⚙ から登録し直してください');
+  if(res.status===404) return null;
+  if(!res.ok) throw new Error(`GitHub API エラー (${res.status})`);
+  return res.json();
+}
+async function pushReports(list, message){
+  const cur = await gh('GET', `contents/${DATA_PATH}`);   // 最新の sha を取得（他端末の更新と衝突しないように）
+  let base = list;
+  if(cur){
+    try{ const remote = JSON.parse(unb64(cur.content)); base = mergeRemote(remote, list); }catch(e){}
+  }
+  const body = { message, content: b64(JSON.stringify(base, null, 1)) };
+  if(cur) body.sha = cur.sha;
+  await gh('PUT', `contents/${DATA_PATH}`, body);
+  return base;
+}
+// リモートの一覧に、ローカルの変更（保存した1件 or 削除）を反映する
+let pendingChange = null;   // {type:'save', report} | {type:'delete', date, prevDate}
+function mergeRemote(remote, local){
+  if(!pendingChange) return local;
+  let list = remote.filter(r=>r.date!==pendingChange.date && r.date!==pendingChange.prevDate);
+  if(pendingChange.type==='save') list.push(pendingChange.report);
+  return list.sort((a,b)=>b.date.localeCompare(a.date));
+}
+
+// ---------- 表示モード ----------
+function applyMode(){
+  const ed = isEditor();
+  $('modeChip').textContent = ed ? '✎ 編集者' : '閲覧';
+  $('modeChip').classList.toggle('ok', ed);
+  $('btnNew').hidden = !ed;
+  $('editor').hidden = !ed || !current;
+}
+
+// ---------- 一覧 ----------
+function renderList(){
+  const el=$('list'); el.innerHTML='';
+  if(!reports.length){ el.innerHTML='<div class="empty">まだ報告がありません。</div>'; return; }
+  let month='';
+  for(const r of reports){
+    const m=r.date.slice(0,7);
+    if(m!==month){ month=m; const d=document.createElement('div'); d.className='month'; d.textContent=`${m.slice(0,4)}年${Number(m.slice(5))}月`; el.appendChild(d); }
+    const d=document.createElement('div'); d.className='day'+(r.date===current?' active':'');
+    const [y,mo,da]=r.date.split('-').map(Number);
+    d.innerHTML=`<span>${mo}/${da}（${WD[new Date(y,mo-1,da).getDay()]}）</span><small>${esc(totalText(r.totalMin))}</small>`;
+    d.onclick=()=>openReport(r.date);
+    el.appendChild(d);
+  }
+}
+
+// ---------- 編集フォーム ----------
+function buildRows(rows){
+  const tb=$('rows'); tb.innerHTML='';
+  for(let i=0;i<ROWS;i++){
+    const r=rows[i]||{};
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="no">${i+1}</td>
+      <td class="time"><input type="time" data-k="start" value="${esc(r.start||'')}"> 〜 <input type="time" data-k="end" value="${esc(r.end||'')}"></td>
+      <td><input type="text" data-k="content" value="${esc(r.content||'')}" placeholder="作業内容"></td>
+      <td class="note"><input type="text" data-k="note" value="${esc(r.note||'')}"></td>`;
+    tb.appendChild(tr);
+  }
+}
+function readForm(){
+  const rows=[...$('rows').querySelectorAll('tr')].map(tr=>{ const o={}; tr.querySelectorAll('input').forEach(i=>o[i.dataset.k]=i.value.trim()); return o; });
+  return { date:$('fDate').value, worker:$('fWorker').value.trim(), rows, remarks:$('fRemarks').value.trim(), totalMin:calcTotal(rows) };
+}
+function refreshTotal(){ const r=readForm(); $('fTotal').textContent=totalText(r.totalMin); $('preview').innerHTML=sheetHTML(r); }
+function showForm(r, title){
+  current=r.date;
+  if(current) history.replaceState(null,'','#'+current);
+  $('editorTitle').textContent=title; $('previewTitle').textContent = isEditor() ? 'プレビュー（印刷用）' : (r.date ? `${jpDate(r.date)} の報告` : '');
+  $('fDate').value=r.date; $('fWorker').value=r.worker||lastWorker; $('fRemarks').value=r.remarks||'';
+  buildRows(r.rows||[]);
+  applyMode(); $('previewCard').hidden=false;
+  $('btnDelete').hidden=!reports.some(x=>x.date===r.date);
+  refreshTotal(); renderList();
+}
+function openReport(date){ const r=reports.find(x=>x.date===date); if(r) showForm(r, `${jpDate(r.date)} の報告`); }
+function newReport(){
+  const t=todayStr();
+  if(reports.some(x=>x.date===t)){ openReport(t); return; }
+  showForm({date:t, worker:lastWorker, rows:[], remarks:'特になし'}, '新しい報告');
+  $('fWorker').value || $('fWorker').focus();
+}
+
+// ---------- Excelフォーマットを再現したHTML ----------
+function sheetHTML(r){
+  const rows=[]; for(let i=0;i<ROWS;i++){ const x=r.rows[i]||{}; rows.push(`<tr><td class="c work">${i+1}</td><td class="in c">${esc(timeRange(x))}</td><td class="in work">${esc(x.content)}</td><td>${esc(x.note)}</td></tr>`); }
+  return `<div class="sheet"><table><colgroup><col style="width:100px"><col style="width:105px"><col><col style="width:150px"></colgroup>
     <tr><td class="title" colspan="4">作業報告書</td></tr>
-    <tr><td class="gap" colspan="4"></td></tr>
-    <tr><td class="hd">日付</td><td class="in" colspan="2">${esc(jpDate(r.date))}</td><td></td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
+    <tr><td class="hd">日付</td><td class="in" colspan="2">${esc(r.date?jpDate(r.date):'')}</td><td></td></tr>
     <tr><td class="hd">作業者</td><td class="in" colspan="2">${esc(r.worker)}</td><td></td></tr>
-    <tr><td class="gap" colspan="4"></td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
     <tr><td class="hd c">No.</td><td class="hd c">作業時間</td><td class="hd c">作業内容</td><td class="hd c">備考</td></tr>
-    ${rows}
-    <tr><td class="gap" colspan="4"></td></tr>
-    <tr><td class="hd" colspan="2">合計作業時間</td><td class="in" colspan="2">${esc(totalText(r.totalMin))}</td></tr>
-    <tr><td class="gap" colspan="4"></td></tr>
+    ${rows.join('')}
+    <tr><td class="nb" colspan="4"></td></tr>
+    <tr><td class="hd" colspan="2">合計作業時間</td><td class="in" colspan="2">${totalText(r.totalMin)}</td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
     <tr><td class="hd" colspan="4">特記事項</td></tr>
     <tr><td class="in remarks" colspan="4">${esc(r.remarks)}</td></tr>
   </table></div>`;
 }
-render();
-window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (reports.some(r => r.date === h)) { sel = h; render(); } });
+
+// ---------- Excel出力 (ExcelJS) ----------
+async function exportExcel(){
+  if(!window.ExcelJS){ alert('Excel出力ライブラリの読み込みに失敗しました。インターネット接続を確認して再読み込みしてください。'); return; }
+  const wb=new ExcelJS.Workbook();
+  const thin={style:'thin'}; const B={top:thin,left:thin,bottom:thin,right:thin};
+  const F=(sz=10,bold=false)=>({name:'Meiryo UI',size:sz,bold});
+  const fill=c=>({type:'pattern',pattern:'solid',fgColor:{argb:c}});
+  const GRAY='FFD9D9D9', YEL='FFFFFFCC';
+  function buildSheet(name, r){
+    const ws=wb.addWorksheet(name);
+    ws.columns=[{width:2.96},{width:14},{width:13},{width:46},{width:20},{width:2.96}];
+    [[2,27.75],[4,19.5],[5,19.5],[7,19.5],[19,19.5],[21,19.5],[22,19.5],[23,19.5],[24,19.5]].forEach(([i,h])=>ws.getRow(i).height=h);
+    for(let i=8;i<=17;i++) ws.getRow(i).height=30;
+    const set=(addr,val,o={})=>{ const c=ws.getCell(addr); c.value=val; c.font=o.font||F(); c.border=B; c.alignment={vertical:o.v||'middle',horizontal:o.h||'left',wrapText:!!o.wrap}; if(o.fill) c.fill=fill(o.fill); return c; };
+    const box=range=>{ ws.mergeCells(range); const [a,b]=range.split(':'); const c1=ws.getCell(a), c2=ws.getCell(b);
+      for(let row=c1.row;row<=c2.row;row++) for(let col=c1.col;col<=c2.col;col++) ws.getCell(row,col).border=B; };
+    set('B2','作業報告書',{font:F(18,true),h:'center'}); box('B2:E2');
+    set('B4','日付',{fill:GRAY,font:F(10,true)}); set('C4', r?jpDate(r.date):'', {fill:YEL}); box('C4:D4'); set('E4','');
+    set('B5','作業者',{fill:GRAY,font:F(10,true)}); set('C5', r?r.worker:'', {fill:YEL}); box('C5:D5'); set('E5','');
+    [['B7','No.'],['C7','作業時間'],['D7','作業内容'],['E7','備考']].forEach(([a,v])=>set(a,v,{fill:GRAY,font:F(10,true),h:'center'}));
+    for(let i=0;i<ROWS;i++){
+      const row=8+i, x=(r&&r.rows[i])||{};
+      set(`B${row}`,i+1,{h:'center'}); set(`C${row}`,timeRange(x),{fill:YEL,h:'center'});
+      set(`D${row}`,x.content||'',{fill:YEL,wrap:true}); set(`E${row}`,x.note||'');
+    }
+    set('B19','合計作業時間',{fill:GRAY,font:F(10,true)}); box('B19:C19');
+    set('D19', r?totalText(r.totalMin):'', {fill:YEL}); box('D19:E19');
+    set('B21','特記事項',{fill:GRAY,font:F(10,true)}); ['C21','D21','E21'].forEach(a=>set(a,''));
+    set('B22', r?r.remarks:'', {fill:YEL,wrap:true,v:'top'}); box('B22:E24');
+    if(!r){ set('B27','【使用方法】黄色セルに日付・作業者名・作業時間・作業内容・合計時間・特記事項を入力してください。本シートはフォーマット（未記入）です。日々の報告は日付タブを追加してご利用ください。',{wrap:true}); box('B27:E27'); ws.getRow(27).height=45; }
+    ws.pageSetup={paperSize:9,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1};
+  }
+  buildSheet('フォーマット', null);
+  [...reports].sort((a,b)=>a.date.localeCompare(b.date)).forEach(r=>buildSheet(r.date, r));
+  const buf=await wb.xlsx.writeBuffer();
+  const blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='在宅作業報告書.xlsx'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 60000);
+}
+
+// ---------- イベント ----------
+$('btnNew').onclick=newReport;
+$('btnExcel').onclick=exportExcel;
+$('btnPrint').onclick=()=>window.print();
+$('rows').addEventListener('input',refreshTotal);
+['fDate','fWorker','fRemarks'].forEach(id=>$(id).addEventListener('input',refreshTotal));
+$('btnSave').onclick=async()=>{
+  const r=readForm();
+  if(!r.date){ alert('日付を入力してください'); return; }
+  if(!r.worker){ alert('作業者を入力してください'); return; }
+  if(current && current!==r.date && reports.some(x=>x.date===r.date) && !confirm(`${jpDate(r.date)} の報告は既に存在します。上書きしますか？`)) return;
+  const btn=$('btnSave'); btn.disabled=true; flash('保存中…', 30000);
+  try{
+    pendingChange={type:'save', report:r, date:r.date, prevDate:current};
+    const local=reports.filter(x=>x.date!==r.date && x.date!==current).concat([r]).sort((a,b)=>b.date.localeCompare(a.date));
+    reports = await pushReports(local, `報告を更新: ${r.date}`);
+    try{ localStorage.setItem('zr_cache', JSON.stringify(reports)); }catch(e){}
+    lastWorker=r.worker; current=r.date; $('btnDelete').hidden=false; $('editorTitle').textContent=`${jpDate(r.date)} の報告`;
+    renderList(); flash('保存しました。公開ページには1〜2分ほどで反映されます');
+  }catch(e){ flash('保存に失敗しました: '+e.message, 8000); }
+  finally{ pendingChange=null; btn.disabled=false; }
+};
+$('btnDelete').onclick=async()=>{
+  if(!current || !confirm(`${jpDate(current)} の報告を削除しますか？`)) return;
+  const btn=$('btnDelete'); btn.disabled=true; flash('削除中…', 30000);
+  try{
+    pendingChange={type:'delete', date:current, prevDate:current};
+    reports = await pushReports(reports.filter(x=>x.date!==current), `報告を削除: ${current}`);
+    current=null; renderList();
+    if(reports.length) openReport(reports[0].date); else newReport();
+    flash('削除しました');
+  }catch(e){ flash('削除に失敗しました: '+e.message, 8000); }
+  finally{ pendingChange=null; btn.disabled=false; }
+};
+$('btnSettings').onclick=()=>{ $('tokenInput').value=''; $('dlgToken').showModal(); };
+$('btnTokenClose').onclick=()=>$('dlgToken').close();
+$('btnTokenSave').onclick=()=>{
+  const t=$('tokenInput').value.trim(); if(!t){ alert('トークンを入力してください'); return; }
+  try{ localStorage.setItem('zr_token', t); }catch(e){ alert('この端末では保存できませんでした'); return; }
+  $('dlgToken').close(); applyMode(); if(current) openReport(current); else newReport();
+};
+$('btnTokenClear').onclick=()=>{ try{ localStorage.removeItem('zr_token'); }catch(e){} $('dlgToken').close(); applyMode(); if(current) openReport(current); };
+window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(h!==current && reports.some(r=>r.date===h)) openReport(h); });
+
+// ---------- 起動 ----------
+loadAll();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js" defer></script>
 </body>
 </html>

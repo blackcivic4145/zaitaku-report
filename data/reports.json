@@ -1,0 +1,70 @@
+[
+ {
+  "date": "2026-09-10",
+  "worker": "吉武眞吾",
+  "rows": [
+   {
+    "start": "09:00",
+    "end": "12:00",
+    "content": "Kotlin言語のPaizaラーニング 第15回・第16回・第17回を実施",
+    "note": ""
+   },
+   {
+    "start": "13:00",
+    "end": "18:00",
+    "content": "Java言語のPaizaラーニング 第1回〜第13回を実施",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   }
+  ],
+  "remarks": "特になし",
+  "totalMin": 480
+ }
+]
