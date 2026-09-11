@@ -74,13 +74,13 @@
    {
     "start": "09:00",
     "end": "12:00",
-    "content": "Kotlin言語のPaizaラーニング 第15回・第16回・第17回を実施",
+    "content": "Kotlin言語のPaizaラーニング Kotlinのfor文と複数のデータの受け取り、繰り返し、データ分類。",
     "note": ""
    },
    {
     "start": "13:00",
     "end": "18:00",
-    "content": "Java言語のPaizaラーニング 第1回〜第13回を実施",
+    "content": "Java言語のPaizaラーニング Java言語の文法学習：標準入出力の使用方法・データ型の定義、Java内でのIF文の文法確認など。",
     "note": ""
    },
    {
