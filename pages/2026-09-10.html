@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>作業報告書 2026-09-10</title><style>
+  :root{
+    --bg:#f4f5f7; --panel:#fff; --line:#d9dce1; --text:#1f2328; --muted:#6b7280;
+    --accent:#2563eb; --accent-bg:#e8effd; --yellow:#ffffcc; --gray:#d9d9d9; --danger:#dc2626;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Meiryo UI","Yu Gothic UI",sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+  header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  header h1{font-size:17px;margin:0;font-weight:700}
+  .chip{font-size:12px;padding:3px 10px;border-radius:999px;background:#fee2e2;color:#991b1b}
+  .chip.ok{background:#dcfce7;color:#166534}
+  .spacer{flex:1}
+  button{font:inherit;padding:7px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;color:var(--text)}
+  button:hover{background:#f3f4f6}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.primary:hover{background:#1d4ed8}
+  button.danger{color:var(--danger)}
+  button:disabled{opacity:.5;cursor:default}
+  .layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 54px)}
+  aside{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto}
+  aside .month{padding:10px 14px 4px;font-size:12px;color:var(--muted);font-weight:700}
+  aside .day{display:flex;justify-content:space-between;padding:8px 14px;cursor:pointer;border-left:3px solid transparent}
+  aside .day:hover{background:#f3f4f6}
+  aside .day.active{background:var(--accent-bg);border-left-color:var(--accent)}
+  aside .day small{color:var(--muted)}
+  aside .empty{padding:20px 14px;color:var(--muted);font-size:13px;line-height:1.6}
+  main{padding:20px 24px;max-width:1000px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:18px}
+  .card h2{font-size:15px;margin:0 0 14px}
+  .row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+  input[type=text],input[type=date],input[type=time],textarea{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:5px;background:var(--yellow);width:100%}
+  textarea{resize:vertical;min-height:70px}
+  table.edit{width:100%;border-collapse:collapse}
+  table.edit th{font-size:12px;color:var(--muted);text-align:left;padding:4px 6px;font-weight:600}
+  table.edit td{padding:3px 4px;vertical-align:top}
+  table.edit td.no{text-align:center;color:var(--muted);padding-top:9px;width:32px}
+  table.edit td.time{width:200px;white-space:nowrap}
+  table.edit td.time input{width:90px;display:inline-block}
+  table.edit td.note{width:200px}
+  .total{font-weight:700;font-size:15px}
+  .actions{display:flex;gap:10px;align-items:center;margin-top:8px}
+  .msg{font-size:12px;color:var(--muted)}
+  .notice{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;padding:12px 16px;border-radius:8px;margin-bottom:18px;line-height:1.6}
+  .notice.info{background:var(--accent-bg);border-color:#93c5fd;color:#1e3a8a}
+  /* 印刷用プレビュー（Excelフォーマットを再現） */
+  .sheet{font-family:"Meiryo UI","Hiragino Sans",sans-serif;font-size:10.5pt;width:720px;background:#fff}
+  .sheet table{border-collapse:collapse;width:100%}
+  .sheet td{border:1px solid #000;padding:3px 6px;vertical-align:middle;word-break:break-all}
+  .sheet td.hd{background:var(--gray);font-weight:700}
+  .sheet td.in{background:var(--yellow)}
+  .sheet td.c{text-align:center}
+  .sheet td.title{font-size:18pt;font-weight:700;text-align:center;height:34px}
+  .sheet td.nb{border:none;height:12px}
+  .sheet td.work{height:36px;white-space:pre-wrap}
+  .sheet td.remarks{height:72px;vertical-align:top;white-space:pre-wrap}
+  @media print{
+    header,aside,.card:not(.preview),.actions,.notice{display:none!important}
+    body{background:#fff}
+    .layout{display:block}
+    main{padding:0;max-width:none}
+    .card.preview{border:none;padding:0;margin:0}
+    .card.preview h2{display:none}
+  }
+
+  body{background:#fff;padding:24px}</style></head><body><div class="sheet"><table><colgroup><col style="width:100px"><col style="width:105px"><col><col style="width:150px"></colgroup>
+    <tr><td class="title" colspan="4">作業報告書</td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
+    <tr><td class="hd">日付</td><td class="in" colspan="2">2026年9月10日（木）</td><td></td></tr>
+    <tr><td class="hd">作業者</td><td class="in" colspan="2">吉武眞吾</td><td></td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
+    <tr><td class="hd c">No.</td><td class="hd c">作業時間</td><td class="hd c">作業内容</td><td class="hd c">備考</td></tr>
+    <tr><td class="c work">1</td><td class="in c">9:00〜12:00</td><td class="in work">Kotlin言語のPaizaラーニング 第15回・第16回・第17回を実施</td><td></td></tr><tr><td class="c work">2</td><td class="in c">13:00〜18:00</td><td class="in work">Java言語のPaizaラーニング 第1回〜第13回を実施</td><td></td></tr><tr><td class="c work">3</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">4</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">5</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">6</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">7</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">8</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">9</td><td class="in c"></td><td class="in work"></td><td></td></tr><tr><td class="c work">10</td><td class="in c"></td><td class="in work"></td><td></td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
+    <tr><td class="hd" colspan="2">合計作業時間</td><td class="in" colspan="2">8時間分</td></tr>
+    <tr><td class="nb" colspan="4"></td></tr>
+    <tr><td class="hd" colspan="4">特記事項</td></tr>
+    <tr><td class="in remarks" colspan="4">特になし</td></tr>
+  </table></div></body></html>
