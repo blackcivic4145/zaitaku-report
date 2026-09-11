@@ -1,17 +1,140 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>在宅作業報告書 - 吉武眞吾</title>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在宅作業報告書</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
- body{margin:0;font-family:"Hiragino Sans","Meiryo UI",sans-serif;background:#f4f5f7;color:#1f2328;font-size:14px}
- .wrap{max-width:760px;margin:0 auto;padding:24px 16px}
- h1{font-size:20px;margin:0 0 4px} .sub{color:#6b7280;margin-bottom:20px}
- h2{font-size:13px;color:#6b7280;margin:20px 0 8px}
- .item{display:grid;grid-template-columns:1fr auto;gap:2px 12px;background:#fff;border:1px solid #d9dce1;border-radius:8px;padding:12px 16px;margin-bottom:8px;text-decoration:none;color:inherit}
- .item:hover{border-color:#2563eb;background:#f8faff}
- .d{font-weight:700} .t{color:#2563eb;font-weight:700} .s{grid-column:1/3;color:#4b5563;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
- .empty{color:#6b7280}
-</style></head><body><div class="wrap">
-<h1>在宅作業報告書</h1><div class="sub">吉武眞吾　全1日分</div>
-<h2>2026年9月</h2><a class="item" href="pages/2026-09-10.html">
-  <div class="d">2026年9月10日（木）</div><div class="t">8時間分</div>
-  <div class="s">Kotlin言語のPaizaラーニング 第15回・第16回・第17回を実施 / Java言語のPaizaラーニング 第1回〜第13回を実施</div></a>
-</div></body></html>
+:root{
+  --bg:#f5f4f0; --panel:#fdfcfa; --line:#d8d6cf; --line-strong:#8f8c84; --ink:#23262b; --muted:#6c7079;
+  --accent:#2f4a7a; --accent-soft:#e6ebf4; --cell-in:#fff6bf; --cell-in-ink:#3a3200; --cell-hd:#e5e6e9;
+}
+@media (prefers-color-scheme: dark){ :root{
+  --bg:#1b1d21; --panel:#23262c; --line:#3a3e46; --line-strong:#7a7f8a; --ink:#e6e7ea; --muted:#9aa0ab;
+  --accent:#9db3dc; --accent-soft:#2b3446; --cell-in:#4a4320; --cell-in-ink:#fff3b0; --cell-hd:#2f333b;
+}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 "Noto Sans JP","Hiragino Sans","Yu Gothic UI",sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono","Menlo",monospace;font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line-strong);border-radius:4px;padding:6px 14px;cursor:pointer;line-height:1.4}
+button:hover{background:var(--accent-soft)}
+button:focus-visible,.day:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+header{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header h1{font-size:16px;font-weight:700;margin:0;letter-spacing:.02em}
+header .who{color:var(--muted);font-size:13px}
+header .grow{flex:1}
+header .count{color:var(--muted);font-size:12px}
+.layout{display:grid;grid-template-columns:236px 1fr;min-height:calc(100vh - 57px)}
+nav{border-right:1px solid var(--line);background:var(--panel);padding:8px 0 24px;overflow-y:auto}
+nav .month{font-size:11px;letter-spacing:.08em;color:var(--muted);padding:14px 18px 4px}
+nav .day{display:grid;grid-template-columns:1fr auto;gap:8px;width:100%;text-align:left;padding:7px 18px;border:0;border-left:3px solid transparent;border-radius:0;background:none;cursor:pointer}
+nav .day:hover{background:var(--accent-soft)}
+nav .day.active{border-left-color:var(--accent);background:var(--accent-soft);font-weight:500}
+nav .day .h{color:var(--muted);font-size:12px}
+nav .empty{padding:18px;color:var(--muted);font-size:13px}
+main{padding:24px 28px 48px;min-width:0}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.bar .status{color:var(--muted);font-size:13px}
+.bar .grow{flex:1}
+.sheet{background:var(--panel);border:1px solid var(--line);padding:28px 28px 32px;max-width:820px;overflow-x:auto}
+.sheet table{border-collapse:collapse;width:100%;min-width:640px;table-layout:fixed}
+.sheet col.c1{width:96px}.sheet col.c2{width:130px}.sheet col.c4{width:140px}
+.sheet td{border:1px solid var(--line-strong);padding:5px 8px;vertical-align:middle;word-break:break-all}
+.sheet td.hd{background:var(--cell-hd);font-weight:700}
+.sheet td.in{background:var(--cell-in);color:var(--cell-in-ink)}
+.sheet td.c{text-align:center}
+.sheet td.title{font-size:20px;font-weight:700;text-align:center;letter-spacing:.2em;padding:8px}
+.sheet td.gap{border:0;height:12px;padding:0}
+.sheet td.work{height:38px;white-space:pre-wrap}
+.sheet td.remarks{height:78px;vertical-align:top;white-space:pre-wrap}
+.sheet td.no{color:var(--muted)}
+.hint{color:var(--muted);font-size:13px}
+@media (max-width:720px){
+  .layout{grid-template-columns:1fr}
+  nav{border-right:0;border-bottom:1px solid var(--line);padding:6px 10px;display:flex;gap:4px;overflow-x:auto}
+  nav .month{padding:8px 6px 8px 10px;white-space:nowrap;align-self:center}
+  nav .day{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent;grid-template-columns:auto;padding:6px 10px}
+  nav .day.active{border-bottom-color:var(--accent)}
+  nav .day .h{display:none}
+  main{padding:16px 12px 40px}
+  .sheet{padding:14px}
+  header{padding:10px 12px;gap:8px}
+}
+@media print{
+  header,nav,.bar{display:none!important}
+  body{background:#fff;color:#000}
+  .layout{display:block}
+  main{padding:0}
+  .sheet{border:0;padding:0;max-width:none}
+  .sheet td{border-color:#000}
+  .sheet td.hd{background:#d9d9d9!important}
+  .sheet td.in{background:#ffffcc!important;color:#000}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script id="reports-data" type="application/json">[{"date": "2026-09-10", "worker": "吉武眞吾", "rows": [{"start": "09:00", "end": "12:00", "content": "Kotlin言語のPaizaラーニング 第15回・第16回・第17回を実施", "note": ""}, {"start": "13:00", "end": "18:00", "content": "Java言語のPaizaラーニング 第1回〜第13回を実施", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}, {"start": "", "end": "", "content": "", "note": ""}], "remarks": "特になし", "totalMin": 480}]</script>
+<script>
+'use strict';
+const ROWS = 10, WD = ['日','月','火','水','木','金','土'];
+let reports = [];
+try { reports = JSON.parse(document.getElementById('reports-data').textContent); } catch (e) {}
+reports.sort((a, b) => b.date.localeCompare(a.date));
+const app = document.getElementById('app');
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const jpDate = iso => { const [y,m,d] = iso.split('-').map(Number); return `${y}年${m}月${d}日（${WD[new Date(y,m-1,d).getDay()]}）`; };
+const shortTime = t => t ? `${Number(t.split(':')[0])}:${t.split(':')[1]}` : '';
+const timeRange = r => (r.start || r.end) ? `${shortTime(r.start)}〜${shortTime(r.end)}` : '';
+const totalText = min => { min = min || 0; const h = Math.floor(min/60), m = min%60; return m ? `${h}時間${m}分` : `${h}時間分`; };
+const worker = (reports.find(r => r.worker) || {}).worker || '';
+let sel = (location.hash.slice(1).match(/^\d{4}-\d{2}-\d{2}$/) && reports.some(r => r.date === location.hash.slice(1))) ? location.hash.slice(1) : (reports[0] ? reports[0].date : null);
+
+function render() {
+  const cur = reports.find(r => r.date === sel) || null;
+  app.innerHTML = `
+<header><h1>在宅作業報告書</h1><span class="who">${esc(worker)}</span><span class="grow"></span><span class="count">全${reports.length}日分</span></header>
+<div class="layout">
+  <nav>${renderNav()}</nav>
+  <main>${cur ? `<div class="bar"><span class="status">${esc(jpDate(cur.date))}</span><span class="grow"></span><button id="btnPrint">印刷</button></div>${renderSheet(cur)}` : '<p class="hint">まだ報告がありません。</p>'}</main>
+</div>`;
+  app.querySelectorAll('nav .day').forEach(b => b.onclick = () => { sel = b.dataset.date; history.replaceState(null, '', '#' + sel); render(); window.scrollTo(0, 0); });
+  const p = document.getElementById('btnPrint'); if (p) p.onclick = () => window.print();
+}
+function renderNav() {
+  if (!reports.length) return '<div class="empty">まだ報告がありません。</div>';
+  let out = '', month = '';
+  for (const r of reports) {
+    const m = r.date.slice(0, 7);
+    if (m !== month) { month = m; out += `<div class="month">${Number(m.slice(0,4))}年${Number(m.slice(5))}月</div>`; }
+    const [y, mo, d] = r.date.split('-').map(Number);
+    out += `<button class="day${r.date === sel ? ' active' : ''}" data-date="${r.date}"><span><span class="mono">${mo}/${pad(d)}</span>（${WD[new Date(y,mo-1,d).getDay()]}）</span><span class="h mono">${esc(totalText(r.totalMin))}</span></button>`;
+  }
+  return out;
+}
+function renderSheet(r) {
+  const rows = Array.from({ length: ROWS }, (_, i) => { const x = r.rows[i] || {};
+    return `<tr><td class="c no mono">${i+1}</td><td class="in c mono">${esc(timeRange(x))}</td><td class="in work">${esc(x.content)}</td><td class="work">${esc(x.note)}</td></tr>`; }).join('');
+  return `<div class="sheet"><table><colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+    <tr><td class="title" colspan="4">作業報告書</td></tr>
+    <tr><td class="gap" colspan="4"></td></tr>
+    <tr><td class="hd">日付</td><td class="in" colspan="2">${esc(jpDate(r.date))}</td><td></td></tr>
+    <tr><td class="hd">作業者</td><td class="in" colspan="2">${esc(r.worker)}</td><td></td></tr>
+    <tr><td class="gap" colspan="4"></td></tr>
+    <tr><td class="hd c">No.</td><td class="hd c">作業時間</td><td class="hd c">作業内容</td><td class="hd c">備考</td></tr>
+    ${rows}
+    <tr><td class="gap" colspan="4"></td></tr>
+    <tr><td class="hd" colspan="2">合計作業時間</td><td class="in" colspan="2">${esc(totalText(r.totalMin))}</td></tr>
+    <tr><td class="gap" colspan="4"></td></tr>
+    <tr><td class="hd" colspan="4">特記事項</td></tr>
+    <tr><td class="in remarks" colspan="4">${esc(r.remarks)}</td></tr>
+  </table></div>`;
+}
+render();
+window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (reports.some(r => r.date === h)) { sel = h; render(); } });
+</script>
+</body>
+</html>
