@@ -1,5 +1,73 @@
 [
  {
+  "date": "2026-09-11",
+  "worker": "吉武眞吾",
+  "rows": [
+   {
+    "start": "09:00",
+    "end": "12:00",
+    "content": "PaizaラーニングにてJavaの文法でのfor文、for + if文の形の理解を行った",
+    "note": ""
+   },
+   {
+    "start": "13:00",
+    "end": "18:00",
+    "content": "Claude CCAR-Fの受験項目：Claude Code設定・ワークフローの問題、プロンプトエンジニアリング・構造化出力に関する出題を英語で問題のトライを実施",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   }
+  ],
+  "remarks": "項目2については実際の試験では英語での問題でなる為、英語に慣れる面も含め、英語で問題のトライを行いました。",
+  "totalMin": 480
+ },
+ {
   "date": "2026-09-10",
   "worker": "吉武眞吾",
   "rows": [
