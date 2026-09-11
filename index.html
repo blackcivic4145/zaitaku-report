@@ -30,6 +30,7 @@
   aside .day:hover{background:#f3f4f6}
   aside .day.active{background:var(--accent-bg);border-left-color:var(--accent)}
   aside .day small{color:var(--muted)}
+  aside .day .w{display:block;font-size:11px;line-height:1.3}
   aside .empty{padding:20px 14px;color:var(--muted);font-size:13px;line-height:1.6}
   main{padding:20px 24px;max-width:1000px;min-width:0}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:18px}
@@ -72,7 +73,8 @@
     .layout{grid-template-columns:1fr}
     aside{border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;padding:4px 8px}
     aside .month{white-space:nowrap;align-self:center;padding:8px}
-    aside .day{white-space:nowrap;border-left:0;border-bottom:3px solid transparent;gap:6px}
+    aside .day{white-space:nowrap;border-left:0;border-bottom:3px solid transparent;gap:6px;align-items:center}
+    aside .day .w{display:inline;margin-left:4px}
     aside .day.active{border-bottom-color:var(--accent)}
     main{padding:12px}
     table.edit td.time{width:auto}
@@ -243,7 +245,7 @@ function renderList(){
     if(m!==month){ month=m; const d=document.createElement('div'); d.className='month'; d.textContent=`${m.slice(0,4)}年${Number(m.slice(5))}月`; el.appendChild(d); }
     const d=document.createElement('div'); d.className='day'+(r.date===current?' active':'');
     const [y,mo,da]=r.date.split('-').map(Number);
-    d.innerHTML=`<span>${mo}/${da}（${WD[new Date(y,mo-1,da).getDay()]}）</span><small>${esc(totalText(r.totalMin))}</small>`;
+    d.innerHTML=`<span>${mo}/${da}（${WD[new Date(y,mo-1,da).getDay()]}）<small class="w">${esc(r.worker||'')}</small></span><small>${esc(totalText(r.totalMin))}</small>`;
     d.onclick=()=>openReport(r.date);
     el.appendChild(d);
   }
