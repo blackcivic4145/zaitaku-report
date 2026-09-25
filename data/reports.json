@@ -1,5 +1,73 @@
 [
  {
+  "date": "2026-09-24",
+  "worker": "吉武眞吾",
+  "rows": [
+   {
+    "start": "09:00",
+    "end": "12:00",
+    "content": "面談練習：Claudeを使用しての面談資料の壁打ち",
+    "note": ""
+   },
+   {
+    "start": "13:00",
+    "end": "18:30",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "18:30",
+    "end": "19:20",
+    "content": "プロジェクト作業状況共有（9月）",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   }
+  ],
+  "remarks": "特になし",
+  "totalMin": 560
+ },
+ {
   "date": "2026-09-18",
   "worker": "吉武眞吾",
   "rows": [
