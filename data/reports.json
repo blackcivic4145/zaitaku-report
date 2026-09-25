@@ -1,5 +1,73 @@
 [
  {
+  "date": "2026-09-18",
+  "worker": "吉武眞吾",
+  "rows": [
+   {
+    "start": "09:00",
+    "end": "12:00",
+    "content": "面談練習のため、Claudeにて壁打ち実施",
+    "note": ""
+   },
+   {
+    "start": "13:00",
+    "end": "18:00",
+    "content": "バイブコーディング入門 Claude Code編(Paiza) ダッシュボードアプリを作成しよう(個人アカウント版）",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "note": ""
+   }
+  ],
+  "remarks": "特になし",
+  "totalMin": 480
+ },
+ {
   "date": "2026-09-17",
   "worker": "吉武眞吾",
   "rows": [
