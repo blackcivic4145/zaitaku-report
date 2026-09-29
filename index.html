@@ -47,6 +47,7 @@
   table.edit td.no{text-align:center;color:var(--muted);padding-top:9px;width:32px}
   table.edit td.time{width:210px;white-space:nowrap}
   table.edit td.time input{width:92px;display:inline-block}
+  table.edit td.learn{width:180px}
   table.edit td.note{width:200px}
   .total{font-weight:700;font-size:15px}
   .actions{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
@@ -113,7 +114,7 @@
         <div style="width:240px"><label>作業者</label><input type="text" id="fWorker" placeholder="氏名"></div>
       </div>
       <table class="edit">
-        <thead><tr><th>No.</th><th>作業時間（開始〜終了）</th><th>作業内容</th><th>備考</th></tr></thead>
+        <thead><tr><th>No.</th><th>作業時間（開始〜終了）</th><th>作業内容</th><th>学習コンテンツ</th><th>備考</th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
       <div class="row" style="margin-top:12px;align-items:baseline">
@@ -260,6 +261,7 @@ function buildRows(rows){
     tr.innerHTML=`<td class="no">${i+1}</td>
       <td class="time"><input type="time" data-k="start" value="${esc(r.start||'')}"> 〜 <input type="time" data-k="end" value="${esc(r.end||'')}"></td>
       <td><input type="text" data-k="content" value="${esc(r.content||'')}" placeholder="作業内容"></td>
+      <td class="learn"><input type="text" data-k="learning" value="${esc(r.learning||'')}" placeholder="学習コンテンツ"></td>
       <td class="note"><input type="text" data-k="note" value="${esc(r.note||'')}"></td>`;
     tb.appendChild(tr);
   }
@@ -289,20 +291,20 @@ function newReport(){
 
 // ---------- Excelフォーマットを再現したHTML ----------
 function sheetHTML(r){
-  const rows=[]; for(let i=0;i<ROWS;i++){ const x=r.rows[i]||{}; rows.push(`<tr><td class="c work">${i+1}</td><td class="in c">${esc(timeRange(x))}</td><td class="in work">${esc(x.content)}</td><td>${esc(x.note)}</td></tr>`); }
-  return `<div class="sheet"><table><colgroup><col style="width:100px"><col style="width:105px"><col><col style="width:150px"></colgroup>
-    <tr><td class="title" colspan="4">作業報告書</td></tr>
-    <tr><td class="nb" colspan="4"></td></tr>
-    <tr><td class="hd">日付</td><td class="in" colspan="2">${esc(r.date?jpDate(r.date):'')}</td><td></td></tr>
-    <tr><td class="hd">作業者</td><td class="in" colspan="2">${esc(r.worker)}</td><td></td></tr>
-    <tr><td class="nb" colspan="4"></td></tr>
-    <tr><td class="hd c">No.</td><td class="hd c">作業時間</td><td class="hd c">作業内容</td><td class="hd c">備考</td></tr>
+  const rows=[]; for(let i=0;i<ROWS;i++){ const x=r.rows[i]||{}; rows.push(`<tr><td class="c work">${i+1}</td><td class="in c">${esc(timeRange(x))}</td><td class="in work">${esc(x.content)}</td><td class="work">${esc(x.learning)}</td><td>${esc(x.note)}</td></tr>`); }
+  return `<div class="sheet"><table><colgroup><col style="width:100px"><col style="width:105px"><col><col style="width:130px"><col style="width:120px"></colgroup>
+    <tr><td class="title" colspan="5">作業報告書</td></tr>
+    <tr><td class="nb" colspan="5"></td></tr>
+    <tr><td class="hd">日付</td><td class="in" colspan="2">${esc(r.date?jpDate(r.date):'')}</td><td colspan="2"></td></tr>
+    <tr><td class="hd">作業者</td><td class="in" colspan="2">${esc(r.worker)}</td><td colspan="2"></td></tr>
+    <tr><td class="nb" colspan="5"></td></tr>
+    <tr><td class="hd c">No.</td><td class="hd c">作業時間</td><td class="hd c">作業内容</td><td class="hd c">学習コンテンツ</td><td class="hd c">備考</td></tr>
     ${rows.join('')}
-    <tr><td class="nb" colspan="4"></td></tr>
-    <tr><td class="hd" colspan="2">合計作業時間</td><td class="in" colspan="2">${totalText(r.totalMin)}</td></tr>
-    <tr><td class="nb" colspan="4"></td></tr>
-    <tr><td class="hd" colspan="4">特記事項</td></tr>
-    <tr><td class="in remarks" colspan="4">${esc(r.remarks)}</td></tr>
+    <tr><td class="nb" colspan="5"></td></tr>
+    <tr><td class="hd" colspan="2">合計作業時間</td><td class="in" colspan="3">${totalText(r.totalMin)}</td></tr>
+    <tr><td class="nb" colspan="5"></td></tr>
+    <tr><td class="hd" colspan="5">特記事項</td></tr>
+    <tr><td class="in remarks" colspan="5">${esc(r.remarks)}</td></tr>
   </table></div>`;
 }
 
@@ -316,26 +318,26 @@ async function exportExcel(){
   const GRAY='FFD9D9D9', YEL='FFFFFFCC';
   function buildSheet(name, r){
     const ws=wb.addWorksheet(name);
-    ws.columns=[{width:2.96},{width:14},{width:13},{width:46},{width:20},{width:2.96}];
+    ws.columns=[{width:2.96},{width:14},{width:13},{width:42},{width:24},{width:20},{width:2.96}];
     [[2,27.75],[4,19.5],[5,19.5],[7,19.5],[19,19.5],[21,19.5],[22,19.5],[23,19.5],[24,19.5]].forEach(([i,h])=>ws.getRow(i).height=h);
     for(let i=8;i<=17;i++) ws.getRow(i).height=30;
     const set=(addr,val,o={})=>{ const c=ws.getCell(addr); c.value=val; c.font=o.font||F(); c.border=B; c.alignment={vertical:o.v||'middle',horizontal:o.h||'left',wrapText:!!o.wrap}; if(o.fill) c.fill=fill(o.fill); return c; };
     const box=range=>{ ws.mergeCells(range); const [a,b]=range.split(':'); const c1=ws.getCell(a), c2=ws.getCell(b);
       for(let row=c1.row;row<=c2.row;row++) for(let col=c1.col;col<=c2.col;col++) ws.getCell(row,col).border=B; };
-    set('B2','作業報告書',{font:F(18,true),h:'center'}); box('B2:E2');
-    set('B4','日付',{fill:GRAY,font:F(10,true)}); set('C4', r?jpDate(r.date):'', {fill:YEL}); box('C4:D4'); set('E4','');
-    set('B5','作業者',{fill:GRAY,font:F(10,true)}); set('C5', r?r.worker:'', {fill:YEL}); box('C5:D5'); set('E5','');
-    [['B7','No.'],['C7','作業時間'],['D7','作業内容'],['E7','備考']].forEach(([a,v])=>set(a,v,{fill:GRAY,font:F(10,true),h:'center'}));
+    set('B2','作業報告書',{font:F(18,true),h:'center'}); box('B2:F2');
+    set('B4','日付',{fill:GRAY,font:F(10,true)}); set('C4', r?jpDate(r.date):'', {fill:YEL}); box('C4:D4'); set('E4',''); set('F4','');
+    set('B5','作業者',{fill:GRAY,font:F(10,true)}); set('C5', r?r.worker:'', {fill:YEL}); box('C5:D5'); set('E5',''); set('F5','');
+    [['B7','No.'],['C7','作業時間'],['D7','作業内容'],['E7','学習コンテンツ'],['F7','備考']].forEach(([a,v])=>set(a,v,{fill:GRAY,font:F(10,true),h:'center'}));
     for(let i=0;i<ROWS;i++){
       const row=8+i, x=(r&&r.rows[i])||{};
       set(`B${row}`,i+1,{h:'center'}); set(`C${row}`,timeRange(x),{fill:YEL,h:'center'});
-      set(`D${row}`,x.content||'',{fill:YEL,wrap:true}); set(`E${row}`,x.note||'');
+      set(`D${row}`,x.content||'',{fill:YEL,wrap:true}); set(`E${row}`,x.learning||'',{wrap:true}); set(`F${row}`,x.note||'');
     }
     set('B19','合計作業時間',{fill:GRAY,font:F(10,true)}); box('B19:C19');
-    set('D19', r?totalText(r.totalMin):'', {fill:YEL}); box('D19:E19');
-    set('B21','特記事項',{fill:GRAY,font:F(10,true)}); ['C21','D21','E21'].forEach(a=>set(a,''));
-    set('B22', r?r.remarks:'', {fill:YEL,wrap:true,v:'top'}); box('B22:E24');
-    if(!r){ set('B27','【使用方法】黄色セルに日付・作業者名・作業時間・作業内容・合計時間・特記事項を入力してください。本シートはフォーマット（未記入）です。日々の報告は日付タブを追加してご利用ください。',{wrap:true}); box('B27:E27'); ws.getRow(27).height=45; }
+    set('D19', r?totalText(r.totalMin):'', {fill:YEL}); box('D19:F19');
+    set('B21','特記事項',{fill:GRAY,font:F(10,true)}); ['C21','D21','E21','F21'].forEach(a=>set(a,''));
+    set('B22', r?r.remarks:'', {fill:YEL,wrap:true,v:'top'}); box('B22:F24');
+    if(!r){ set('B27','【使用方法】黄色セルに日付・作業者名・作業時間・作業内容・合計時間・特記事項を入力してください。本シートはフォーマット（未記入）です。日々の報告は日付タブを追加してご利用ください。',{wrap:true}); box('B27:F27'); ws.getRow(27).height=45; }
     ws.pageSetup={paperSize:9,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1};
   }
   buildSheet('フォーマット', null);
