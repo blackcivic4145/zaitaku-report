@@ -6,23 +6,23 @@
    {
     "start": "09:00",
     "end": "12:00",
-    "content": "",
-    "learning": "",
-    "note": ""
+    "content": "生成AI超入門 リテラシー編",
+    "learning": "Paiza(会社アカウント)",
+    "note": "1〜7実施"
    },
    {
     "start": "13:00",
-    "end": "18:00",
-    "content": "",
-    "learning": "",
-    "note": ""
+    "end": "15:00",
+    "content": "Java入門編1:プログラミングを学ぶ",
+    "learning": "Paiza(会社アカウント)",
+    "note": "1〜9実施"
    },
    {
-    "start": "",
-    "end": "",
-    "content": "",
-    "learning": "",
-    "note": ""
+    "start": "15:00",
+    "end": "18:00",
+    "content": "Java入門編2:条件によって処理を変えてみよう",
+    "learning": "Paiza(会社アカウント)",
+    "note": "1〜8実施"
    },
    {
     "start": "",
