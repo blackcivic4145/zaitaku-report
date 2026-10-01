@@ -1,5 +1,83 @@
 [
  {
+  "date": "2026-10-01",
+  "worker": "吉武眞吾",
+  "rows": [
+   {
+    "start": "09:00",
+    "end": "12:00",
+    "content": "Claudeにて面接壁打ち実施",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "13:00",
+    "end": "14:00",
+    "content": "ミーティング準備",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "14:00",
+    "end": "14:30",
+    "content": "田中部長とWebミーティング",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "14:30",
+    "end": "18:00",
+    "content": "退職準備",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "learning": "",
+    "note": ""
+   },
+   {
+    "start": "",
+    "end": "",
+    "content": "",
+    "learning": "",
+    "note": ""
+   }
+  ],
+  "remarks": "特になし",
+  "totalMin": 480
+ },
+ {
   "date": "2026-09-30",
   "worker": "吉武眞吾",
   "rows": [
